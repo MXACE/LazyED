@@ -54,22 +54,22 @@ lib-copy:
 build-project: prebuild lib-copy
 	$(PREMAKE) vs2019
 	$(MSBUILD) LazyED.vcxproj /property:Configuration=Debug
-	$(foreach file,$(LIBS),$(shell cp $(QT_BIN_PATH)/$(file) $(BIN_DIR)/Debug/$(file)))
+	mv $(BIN_DIR)/*.dll $(BIN_DIR)/Debug/
 
 build: prebuild lib-copy
 	$(PREMAKE) vs2019
 	$(MSBUILD) LazyED.sln /property:Configuration=Debug
-	$(foreach file,$(LIBS),$(shell cp $(QT_BIN_PATH)/$(file) $(BIN_DIR)/Debug/$(file)))
+	mv $(BIN_DIR)/*.dll $(BIN_DIR)/Debug/
 
 build-project-release: prebuild lib-copy
 	$(PREMAKE) vs2019
 	$(MSBUILD) LazyED.vcxproj /property:Configuration=Release
-	$(foreach file,$(LIBS),$(shell cp $(QT_BIN_PATH)/$(file) $(BIN_DIR)/Release/$(file)))
+	mv $(BIN_DIR)/*.dll $(BIN_DIR)/Release/
 	
 build-release: prebuild lib-copy
 	$(PREMAKE) vs2019
 	$(MSBUILD) LazyED.sln /property:Configuration=Release
-	$(foreach file,$(LIBS),$(shell cp $(QT_BIN_PATH)/$(file) $(BIN_DIR)/Release/$(file)))
+	mv $(BIN_DIR)/*.dll $(BIN_DIR)/Release/
 
 run:
 	$(BIN_DIR)/Debug/LazyED.exe
