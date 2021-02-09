@@ -11,4 +11,5 @@ Example:
 - QT_PATH="C:/Qt/Qt5.12.10/5.12.10"
 - QT_TOOLS="C:/Qt/Qt5.12.10/Tools" (only necessary for the VS Code extension 'Qt')
   
-The executables premake5.exe, moc.exe and MSBuild.exe also need to be in the Path environment variable.
+The executables premake5.exe, moc.exe and MSBuild.exe also need to be in the Path environment variable.  
+For Qt5 the Visual Studio msvc2017_64

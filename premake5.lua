@@ -6,6 +6,7 @@ workspace "LazyED"
 	project "LazyED"
 		kind "ConsoleApp"
 		language "C++"
+		architecture "x64_86"
 		
 		includedirs {
 			"bin/moc",
