@@ -1,9 +1,13 @@
 {
 	"qttools.creator": "${env:QT_TOOLS}\\QtCreator\\bin\\qtcreator.exe",
 	"C_Cpp.default.includePath": [
-		"${workspaceFolder}",
-		"${env:QT_PATH}\\mingw73_64\\include",
-		"${env:QT_PATH}\\mingw73_64\\include\\QtCore",
-		"${env:QT_PATH}\\mingw73_64\\include\\QtGui"
-	]
+		"${workspaceFolder}\\src",
+		"${env:QT_PATH}\\msvc2017_64\\include",
+		"${env:QT_PATH}\\msvc2017_64\\include\\QtCore",
+		"${env:QT_PATH}\\msvc2017_64\\include\\QtGui",
+		"${env:QT_PATH}\\msvc2017_64\\include\\QtWidgets"
+	],
+	"files.associations": {
+		"qmainwindow": "cpp"
+	}
 }

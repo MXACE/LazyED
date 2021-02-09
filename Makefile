@@ -3,27 +3,33 @@ SRC_DIR=./src
 BIN_DIR=./bin/target
 INT_DIR=./bin/int
 MOC_DIR=./bin/moc
+UIC_DIR=./bin/uic
 
 
 MOC=moc.exe
+UIC=uic.exe
 PREMAKE=premake5.exe
 MSBUILD=MSBuild.exe
 
-MOC_DEPS=$(foreach file,$(wildcard $(SRC_DIR)/*.h) $(wildcard $(SRC_DIR)/**/*.h),$(subst $(SRC_DIR)/,,$(file)))
+HEADERS=$(foreach file,$(wildcard $(SRC_DIR)/*.h) $(wildcard $(SRC_DIR)/**/*.h),$(subst $(SRC_DIR)/,,$(file)))
+FORMS=$(foreach file,$(wildcard $(SRC_DIR)/*.ui) $(wildcard $(SRC_DIR)/**/*.ui),$(subst $(SRC_DIR)/,,$(file)))
 
 clean-int:
-	rm -rf $(INT_DIR)
+	@rm -rf $(INT_DIR)
 
 clean-moc:
-	rm -rf $(MOC_DIR)
+	@rm -rf $(MOC_DIR)
 
 clean-bin:
-	rm -rf $(BIN_DIR)
+	@rm -rf $(BIN_DIR)
+
+clean-uic:
+	@rm -rf $(UIC_DIR)
 
 clean-proj:
-	rm *.sln *.vcxproj
+	@rm -f *.sln *.vcxproj *.vcxproj.filters *.vcxproj.user
 
-clean: clean-int clean-moc clean-bin clean-proj
+clean: clean-int clean-moc clean-bin clean-uic clean-proj 
 
 $(MOC_DIR)/%.h: $(SRC_DIR)/%.h
 	$(MOC) -o $@ $<
@@ -32,9 +38,11 @@ prebuild:
 	@mkdir -p $(MOC_DIR)
 	@mkdir -p $(BIN_DIR)
 	@mkdir -p $(INT_DIR)
-	$(foreach file,$(MOC_DEPS),$(shell mkdir -p $(MOC_DIR)/$$(dirname $(file))))
-	$(foreach file,$(MOC_DEPS),$(shell $(MOC) -o $(MOC_DIR)/$(file) $(SRC_DIR)/$(file)))
-	@$(foreach file,$(MOC_DEPS),powershell -Command "if ( [String]::IsNullOrWhiteSpace((Get-Content $(MOC_DIR)/$(file))) ) { rm $(MOC_DIR)/$(file) }";)
+	@mkdir -p $(UIC_DIR)
+	$(foreach file,$(HEADERS),$(shell mkdir -p $(MOC_DIR)/$$(dirname $(file))))
+	$(foreach file,$(FORMS),$(shell mkdir -p $(UIC_DIR)/$$(dirname $(file))))
+	$(foreach file,$(HEADERS),$(shell $(MOC) -o $(subst .h,.cpp,$(MOC_DIR)/$$(dirname $(file))/moc_$$(basename $(file))) $(SRC_DIR)/$(file)))
+	$(foreach file,$(FORMS),$(shell $(UIC) -o $(subst .ui,.h,$(UIC_DIR)/$$(dirname $(file))/ui_$$(basename $(file))) $(SRC_DIR)/$(file)))
 
 build-project: prebuild
 	$(PREMAKE) vs2019

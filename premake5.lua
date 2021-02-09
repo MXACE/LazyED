@@ -6,15 +6,17 @@ workspace "LazyED"
 	project "LazyED"
 		kind "ConsoleApp"
 		language "C++"
-		architecture "x64_86"
+		system "Windows"
+		architecture "x86_64"
 		
 		includedirs {
 			"bin/moc",
+			"bin/uic",
 			"src",
+			QT_PATH .. "/msvc2017_64/include",
 			QT_PATH .. "/msvc2017_64/include/QtCore", 
 			QT_PATH .. "/msvc2017_64/include/QtGui", 
-			QT_PATH .. "/msvc2017_64/include/QtWidgets", 
-			QT_PATH .. "/msvc2017_64/include"
+			QT_PATH .. "/msvc2017_64/include/QtWidgets"
 		}
 		
 		libdirs {
@@ -30,9 +32,11 @@ workspace "LazyED"
 		targetdir "bin/target/%{cfg.buildcfg}"
 		objdir "bin/int"
 		
-		files { "**.cpp", "**.c" }
+		files { "src/**.cpp", "src/**.c", "bin/moc/**.cpp" }
 		
-		defines { "_CRT_SECURE_NO_WARNINGS" }
+		defines {
+			"_CRT_SECURE_NO_WARNINGS"
+		}
 		
 		filter "configurations:Debug"
 			defines { "DEBUG" }
