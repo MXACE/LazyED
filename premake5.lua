@@ -1,3 +1,5 @@
+QT_PATH = os.getenv("Path")
+
 workspace "LazyED"
 	configurations { "Debug", "Release" }
 	
@@ -8,14 +10,14 @@ workspace "LazyED"
 		includedirs {
 			"bin/moc",
 			"src",
-			"C:/Qt/Qt5.12.10/5.12.10/msvc2017_64/include/QtCore", 
-			"C:/Qt/Qt5.12.10/5.12.10/msvc2017_64/include/QtGui", 
-			"C:/Qt/Qt5.12.10/5.12.10/msvc2017_64/include/QtWidgets", 
-			"C:/Qt/Qt5.12.10/5.12.10/msvc2017_64/include"
+			QT_PATH .. "/msvc2017_64/include/QtCore", 
+			QT_PATH .. "/msvc2017_64/include/QtGui", 
+			QT_PATH .. "/msvc2017_64/include/QtWidgets", 
+			QT_PATH .. "/msvc2017_64/include"
 		}
 		
 		libdirs {
-			"C:/Qt/Qt5.12.10/5.12.10/msvc2017_64/lib"
+			QT_PATH .. "/msvc2017_64/lib"
 		}
 		
 		links {

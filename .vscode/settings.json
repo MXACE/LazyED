@@ -1,0 +1,9 @@
+{
+	"qttools.creator": "${env:QT_TOOLS}\\QtCreator\\bin\\qtcreator.exe",
+	"C_Cpp.default.includePath": [
+		"${workspaceFolder}",
+		"${env:QT_PATH}\\mingw73_64\\include",
+		"${env:QT_PATH}\\mingw73_64\\include\\QtCore",
+		"${env:QT_PATH}\\mingw73_64\\include\\QtGui"
+	]
+}

@@ -5,9 +5,9 @@ INT_DIR=./bin/int
 MOC_DIR=./bin/moc
 
 
-MOC="C:\\Qt\\Qt5.12.10\\5.12.10\\msvc2017_64\\bin\\moc.exe"
-PREMAKE="premake5.exe"
-MSBUILD="C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe"
+MOC=moc.exe
+PREMAKE=premake5.exe
+MSBUILD=MSBuild.exe
 
 MOC_DEPS=$(foreach file,$(wildcard $(SRC_DIR)/*.h) $(wildcard $(SRC_DIR)/**/*.h),$(subst $(SRC_DIR)/,,$(file)))
 
