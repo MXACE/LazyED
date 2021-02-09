@@ -5,14 +5,17 @@ INT_DIR=./bin/int
 MOC_DIR=./bin/moc
 UIC_DIR=./bin/uic
 
+QT_BIN_PATH=$(QT_PATH)/msvc2017_64/bin
 
-MOC=$(QT_PATH)/msvc2017_64/bin/moc.exe
-UIC=$(QT_PATH)/msvc2017_64/bin/uic.exe
+MOC=$(QT_BIN_PATH)/moc.exe
+UIC=$(QT_BIN_PATH)/uic.exe
 PREMAKE=premake5.exe
 MSBUILD=MSBuild.exe
 
 HEADERS=$(foreach file,$(wildcard $(SRC_DIR)/*.h) $(wildcard $(SRC_DIR)/**/*.h),$(subst $(SRC_DIR)/,,$(file)))
 FORMS=$(foreach file,$(wildcard $(SRC_DIR)/*.ui) $(wildcard $(SRC_DIR)/**/*.ui),$(subst $(SRC_DIR)/,,$(file)))
+
+LIBS=Qt5Cored.dll Qt5Guid.dll Qt5Widgetsd.dll
 
 clean-int:
 	@rm -rf $(INT_DIR)
@@ -44,21 +47,29 @@ prebuild: clean
 	$(foreach file,$(HEADERS),$(shell $(MOC) -o $(subst .h,.cpp,$(MOC_DIR)/$$(dirname $(file))/moc_$$(basename $(file))) $(SRC_DIR)/$(file)))
 	$(foreach file,$(FORMS),$(shell $(UIC) -o $(subst .ui,.h,$(UIC_DIR)/$$(dirname $(file))/ui_$$(basename $(file))) $(SRC_DIR)/$(file)))
 
-build-project: prebuild
+lib-copy:
+	@mkdir -p $(BIN_DIR)
+	$(foreach file,$(LIBS),$(shell cp $(QT_BIN_PATH)/$(file) $(BIN_DIR)/$(file)))
+
+build-project: prebuild lib-copy
 	$(PREMAKE) vs2019
 	$(MSBUILD) LazyED.vcxproj /property:Configuration=Debug
+	$(foreach file,$(LIBS),$(shell cp $(QT_BIN_PATH)/$(file) $(BIN_DIR)/Debug/$(file)))
 
-build: prebuild
+build: prebuild lib-copy
 	$(PREMAKE) vs2019
 	$(MSBUILD) LazyED.sln /property:Configuration=Debug
+	$(foreach file,$(LIBS),$(shell cp $(QT_BIN_PATH)/$(file) $(BIN_DIR)/Debug/$(file)))
 
-build-project-release: prebuild
+build-project-release: prebuild lib-copy
 	$(PREMAKE) vs2019
 	$(MSBUILD) LazyED.vcxproj /property:Configuration=Release
+	$(foreach file,$(LIBS),$(shell cp $(QT_BIN_PATH)/$(file) $(BIN_DIR)/Release/$(file)))
 	
-build-release: prebuild
+build-release: prebuild lib-copy
 	$(PREMAKE) vs2019
 	$(MSBUILD) LazyED.sln /property:Configuration=Release
+	$(foreach file,$(LIBS),$(shell cp $(QT_BIN_PATH)/$(file) $(BIN_DIR)/Release/$(file)))
 
 run:
 	$(BIN_DIR)/Debug/LazyED.exe
