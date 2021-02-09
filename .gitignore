@@ -4,3 +4,4 @@ bin/
 *.vcxproj.filters
 *.vcxproj.user
 setup.ps1
+howtobuild.txt
