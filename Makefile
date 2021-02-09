@@ -6,8 +6,8 @@ MOC_DIR=./bin/moc
 UIC_DIR=./bin/uic
 
 
-MOC=moc.exe
-UIC=uic.exe
+MOC=$(QT_PATH)/msvc2017_64/bin/moc.exe
+UIC=$(QT_PATH)/msvc2017_64/bin/uic.exe
 PREMAKE=premake5.exe
 MSBUILD=MSBuild.exe
 
@@ -34,7 +34,7 @@ clean: clean-int clean-moc clean-bin clean-uic clean-proj
 $(MOC_DIR)/%.h: $(SRC_DIR)/%.h
 	$(MOC) -o $@ $<
 
-prebuild:
+prebuild: clean
 	@mkdir -p $(MOC_DIR)
 	@mkdir -p $(BIN_DIR)
 	@mkdir -p $(INT_DIR)
