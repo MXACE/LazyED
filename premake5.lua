@@ -1,4 +1,4 @@
-QT_PATH = os.getenv("Path")
+QT_PATH = os.getenv("QT_PATH")
 
 workspace "LazyED"
 	configurations { "Debug", "Release" }
