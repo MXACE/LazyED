@@ -3,4 +3,4 @@ bin/
 *.vcxproj
 *.vcxproj.filters
 *.vcxproj.user
-marco-setup.ps
+setup.ps1
