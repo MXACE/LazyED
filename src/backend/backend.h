@@ -14,7 +14,7 @@
 namespace led {
 
 	typedef void (*GameEventCallbackFunction)(GameEvent* event);
-	typedef void (*ShipTargettedEventCallbackFunction)(ShipTargettedEvent* event);
+	typedef void (*ShipTargettedEventCallbackFunction)(ShipTargetedEvent* event);
 	
 	class Backend : public QObject {
 		Q_OBJECT

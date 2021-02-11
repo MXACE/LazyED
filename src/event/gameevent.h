@@ -36,7 +36,7 @@ namespace led {
 	
 	void initializeEventTable();
 	QString getLocalisedValue(QJsonObject obj, QString name);
-	GameEvent parseGameEvent(QJsonObject obj);
+	GameEvent* parseGameEvent(QJsonObject obj);
 	
 };
 

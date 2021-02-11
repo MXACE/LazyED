@@ -1,6 +1,8 @@
 #include "gameevent.h"
 #include <map>
 
+#include "shiptargetedevent.h"
+
 std::map<QString, led::EventEnum> eventTable;
 
 led::GameEvent::GameEvent(QString eventName, QDateTime timestamp)
@@ -31,15 +33,13 @@ void led::initializeEventTable()
 	eventTable[QString("ShipTargeted")] = led::LED_EVENT_SHIP_TARGETED;
 }
 
-led::GameEvent led::parseGameEvent(QJsonObject obj)
+led::GameEvent* led::parseGameEvent(QJsonObject obj)
 {
 	QString eventName = obj["event"].toString();
 	QDateTime timestamp = QDateTime::fromString(obj["timestamp"].toString(), "yyyy-MM-dd'T'hh:mm:ss'T'");
 	
 	switch (eventTable[eventName]) {
-		case LED_EVENT_SHIP_TARGETED:
-			
-			break;
+		case LED_EVENT_SHIP_TARGETED: return (led::GameEvent*)new led::ShipTargetedEvent(eventName, timestamp, obj);
 	}
 	
 }
