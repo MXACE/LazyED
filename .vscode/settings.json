@@ -8,6 +8,7 @@
 		"${env:QT_PATH}\\msvc2017_64\\include\\QtWidgets"
 	],
 	"files.associations": {
-		"qmainwindow": "cpp"
+		"qmainwindow": "cpp",
+		"ostream": "cpp"
 	}
 }

@@ -1,4 +1,5 @@
 bin/
+testdir/
 *.sln
 *.vcxproj
 *.vcxproj.filters

@@ -39,11 +39,11 @@ workspace "LazyED"
 		}
 		
 		filter "configurations:Debug"
-			defines { "DEBUG" }
+			defines { "LED_DEBUG" }
 			optimize "Off"
 			symbols "On"
 		
 		filter "configurations:Release"
-			defines { "RELEASE" }
+			defines { "LED_RELEASE" }
 			optimize "On"
 			symbols "Off"
