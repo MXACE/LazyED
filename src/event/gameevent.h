@@ -4,6 +4,8 @@
 #include <iostream>
 #include <QString>
 #include <QDateTime>
+#include <QJsonObject>
+#include <QJsonArray>
 
 namespace led {
 	
@@ -25,6 +27,16 @@ namespace led {
 		QString toString();
 	};
 	
+	static enum EventEnum
+	{
+		LED_EVENT_SHIP_TARGETED,
+		
+		LED_EVENT_UNDEFINED
+	};
+	
+	void initializeEventTable();
+	QString getLocalisedValue(QJsonObject obj, QString name);
+	GameEvent parseGameEvent(QJsonObject obj);
 	
 };
 

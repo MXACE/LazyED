@@ -1,7 +1,7 @@
 #include "backend.h"
 
 
-#include <iostream>
+#include "debug.h"
 
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -16,6 +16,8 @@ led::Backend::Backend(led::Configuration* configuration)
 {
 	this->config = configuration;
 	this->offset = 0;
+	
+	led::initializeEventTable();
 		
 	// set the QFileSystemWatcher so that any new files are detected and such that the newest journal is detected
 	this->fsWatcher = new QFileSystemWatcher();
@@ -81,8 +83,7 @@ void led::Backend::backendFileChanged(const QString &path)
 					
 					if (doc.isObject()) {
 						QJsonObject event = doc.object();
-						
-						std::cout << "Event read: " << event["event"].toString().toStdString() << std::endl;
+						led::parseGameEvent(event);
 						
 						this->offset = journal.pos();
 					}

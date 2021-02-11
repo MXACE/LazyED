@@ -2,7 +2,7 @@
 #define _BACKEND_H
 
 #include "event/gameevent.h"
-#include "event/shiptargettedevent.h"
+#include "event/shiptargetedevent.h"
 #include "configuration.h"
 
 #include <QObject>
